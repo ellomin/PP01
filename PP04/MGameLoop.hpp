@@ -13,52 +13,55 @@ namespace MuSeoun_Engine
 	private:
 		bool _isGameRunning;
 		MConsoleRenderer cRenderer;
+		chrono::system_clock::time_point startRenderTimePoint;
+		chrono::duration<double> renderDuration;
+		Player p;
 
 	public:
-		MGameLoop()
-		{
-			_isGameRunning = false;
-		}
-		~MGameLoop()
-		{
-		}
+		MGameLoop() { _isGameRunning = false; }
+		~MGameLoop() {}
 
 		void Run()
 		{
 			_isGameRunning = true;
-
 			Initialize();
 
+			startRenderTimePoint = chrono::system_clock::now();
 			while (_isGameRunning)
 			{
+
 				Input();
 				Update();
 				Render();
-			}
 
+			}
 			Release();
 		}
-
 		void Stop()
 		{
 			_isGameRunning = false;
 		}
 
-
 	private:
-
 		void Initialize()
 		{
-			
+
 		}
 		void Release()
 		{
-	
 		}
 
 		void Input()
 		{
-			
+			if (GetAsyncKeyState(VK_SPACE) & 0x8000 || GetAsyncKeyState(VK_SPACE) & 0x8001)
+			{
+				p.isKeyPressed();
+			}
+			else
+			{
+				p.isKeyUnpressed();
+			}
+
 		}
 		void Update()
 		{
@@ -66,17 +69,29 @@ namespace MuSeoun_Engine
 		}
 		void Render()
 		{
-			chrono::system_clock::time_point startRenderTimePoint = chrono::system_clock::now();
-
 			cRenderer.Clear();
+
+
+			cRenderer.MoveCursor(p.x, p.y);
+			cRenderer.DrawString("P");
+
+
 			cRenderer.MoveCursor(10, 20);
-			cRenderer.DrawString("test");
-
-			chrono::duration<double> renderDuration = chrono::system_clock::now() - startRenderTimePoint;
 
 
-			string fps = "FPS(milliseconds): " + to_string(renderDuration.count());
+			renderDuration = chrono::system_clock::now() - startRenderTimePoint;
+			startRenderTimePoint = chrono::system_clock::now();
+			string fps = "FPS : " + to_string(1.0 / renderDuration.count());
 			cRenderer.DrawString(fps);
+
+			this_thread::sleep_for(chrono::milliseconds(20));
 		}
+		////cout << "Rendering speed : " << renderDuration.count() << "sec" << endl;
+
+		//int remainingFrameTime = 100 - (int)(renderDuration.count() * 1000.0);
+		//if (remainingFrameTime > 0)
+		//	this_thread::sleep_for(chrono::milliseconds(remainingFrameTime));
 	};
 }
+// chrono 시간을 측정하는것
+// Duration 시간이 얼마나 지났나

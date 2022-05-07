@@ -1,4 +1,4 @@
-#pragma once // 헤더의 중복선언 방지 
+#pragma once
 #include <iostream>
 #include <string>
 #include <Windows.h>

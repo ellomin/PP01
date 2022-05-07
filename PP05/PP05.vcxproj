@@ -142,7 +142,10 @@
     <ClCompile Include="PP05.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MComponent.hpp" />
+    <ClInclude Include="MConsolUtil.hpp" />
     <ClInclude Include="MGameLoop.hpp" />
+    <ClInclude Include="MObject.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
