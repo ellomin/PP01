@@ -37,8 +37,16 @@ int main(void)
         ratio = width / (float)height;
 
 
-        glClearColor(0.3f, 0.3f, 0.3f, 1); //openGL은 float가 중요하다 어지간하면 float으로 변환시켜주는게 좋다
+        glClearColor(0.7f, 0.7f, 0.7f, 1); //openGL은 float가 중요하다 어지간하면 float으로 변환시켜주는게 좋다
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glBegin(GL_TRIANGLES);
+        glVertex2f(0.0f, 0.0f);
+        glVertex2f(1.0f, 1.0f);
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex2f(1.0f, -1.0f);
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glEnd();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
