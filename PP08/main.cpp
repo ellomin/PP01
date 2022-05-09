@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#pragma comment (lib, "opengl32")
-//외부에서 무언가를 가져다 쓸때
 
 static void error_callback(int error, const char* description)
 {
@@ -37,7 +35,7 @@ int main(void)
         ratio = width / (float)height;
 
 
-        glClearColor(0.3f, 0.3f, 0.3f, 1); //openGL은 float가 중요하다 어지간하면 float으로 변환시켜주는게 좋다
+        glClearColor(0, 0, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);
