@@ -22,9 +22,9 @@ static GLuint texName;
 void makeCheckImage(void)
 {
     int i, j, c;
-
     for (i = 0; i < checkImageHeight; i++) {
         for (j = 0; j < checkImageWidth; j++) {
+            //8개는 칠하고 8개는 칠하지 않는다.
             c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
             checkImage[i][j][0] = (GLubyte)c;
             checkImage[i][j][1] = (GLubyte)c;
@@ -43,9 +43,11 @@ void init(void)
     makeCheckImage();
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
+    // 1번 텍스쳐에 그림을 올려주겠다
     glGenTextures(1, &texName);
     glBindTexture(GL_TEXTURE_2D, texName);
 
+    // 기존에 있는 텍스쳐를 늘렸을때 MAG 필터 MIN 필터
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
@@ -56,7 +58,6 @@ void init(void)
         checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
         checkImage);
 }
-
 //비트맵 헤더를 한 묶음으로 다시 구조체로 묶었어요. 함수처리를 편하게 하려구요.
 typedef struct tagBITMAPHEADER {
     BITMAPFILEHEADER bf;
